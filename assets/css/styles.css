@@ -29,6 +29,7 @@ main {
     max-width: 800px;
     margin: 0 auto;
     padding: 2rem 20px;
+    min-height: 200vh;
 }
 
 /* Typography */
@@ -45,26 +46,36 @@ p {
     margin-bottom: 2rem;
 }
 
-/* Timelapse container */
-.timelapse-container {
+/* Scroll sequence styles */
+.scroll-sequence-container {
+    position: relative;
     width: 100vw;
+    height: 300vh;
     margin-left: calc(-50vw + 50%);
     margin-right: calc(-50vw + 50%);
     margin-top: 2rem;
     margin-bottom: 2rem;
-    position: relative;
 }
 
-.timelapse-image {
+.sequence-image {
+    width: 800px;
+    position: relative;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.sequence-image.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    transform: none;
+}
+
+.sequence-image img {
     width: 100%;
     height: auto;
     display: block;
-    max-height: 90vh;
-    object-fit: contain;
-    margin: 0 auto;
-}
-
-/* Add some padding to ensure scrolling */
-main {
-    min-height: 200vh; /* Ensures enough scroll space */
 }
