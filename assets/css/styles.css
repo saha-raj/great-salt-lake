@@ -7,6 +7,7 @@
 body {
     font-family: -apple-system, system-ui, sans-serif;
     line-height: 1.5;
+    overflow-x: hidden;
 }
 
 .content {
@@ -14,10 +15,6 @@ body {
     margin: 0 auto;
     padding: 20px;
     background-color: #f0f0f0;
-}
-
-.text-block {
-    margin-bottom: 2rem;
 }
 
 .sequence-block {
@@ -29,17 +26,48 @@ body {
     z-index: 1;
 }
 
-.sequence-block.fixed {
-    position: fixed;
-    top: 0;
+.sequence-container {
+    position: relative;
+    width: 100%;
 }
 
-.sequence-block img {
+.sequence-container img {
     width: 100%;
     height: auto;
     display: block;
 }
 
-p {
-    margin-bottom: 1rem;
+.sequence-block.is-active {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    margin: 0;
+}
+
+.sequence-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 4px;
+    background: #000;
+    transition: width 0.1s ease;
+}
+
+body.sequence-scrolling {
+    overflow: hidden;
+}
+
+/* Add styles for placeholder */
+.sequence-placeholder {
+    width: 75vw;
+    margin: 2rem 0;
+}
+
+/* Ensure content below sequence stays in position */
+.text-block {
+    position: relative;
+    z-index: 1;
 }
