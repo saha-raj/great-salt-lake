@@ -39,25 +39,17 @@ class ScrollSequence {
     }
 
     activateSequence(block) {
-        console.log('Attempting to activate sequence:', {
-            isActive: this.isActive,
-            hasReachedEnd: this.hasReachedEnd
-        });
+        if (this.isActive || this.hasReachedEnd) return;
         
-        // Don't activate if we've reached the end
-        if (this.isActive || this.hasReachedEnd) {
-            console.log('Activation prevented - sequence is active or has ended');
-            return;
-        }
+        // Store next element's position before any changes
+        const nextElement = block.nextElementSibling;
+        const nextTop = nextElement?.getBoundingClientRect().top;
         
         this.isActive = true;
         this.activeBlock = block;
         this.currentFrame = 1;
-        
-        // Store the scroll position where sequence was activated
         this.activationScrollY = window.scrollY;
         
-        // Create and insert placeholder
         this.placeholder = document.createElement('div');
         this.placeholder.style.height = `${block.offsetHeight}px`;
         block.parentNode.insertBefore(this.placeholder, block);
@@ -65,9 +57,11 @@ class ScrollSequence {
         block.classList.add('is-active');
         document.body.classList.add('sequence-scrolling');
         
-        const progress = block.querySelector('.sequence-progress');
-        if (progress) {
-            progress.style.width = '0%';
+        // Force next element back to original position
+        if (nextElement) {
+            const newTop = nextElement.getBoundingClientRect().top;
+            const diff = newTop - nextTop;
+            this.placeholder.style.height = `${block.offsetHeight - diff}px`;
         }
     }
 
