@@ -184,5 +184,17 @@ class ScrollSequence {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Force scroll to top
+    window.scrollTo({
+        top: 0,
+        behavior: 'instant'
+    });
+    
+    // Reset any active states
+    document.body.classList.remove('sequence-scrolling');
+    document.querySelectorAll('.sequence-block').forEach(block => {
+        block.classList.remove('is-active');
+    });
+    
     new ScrollSequence();
 });
