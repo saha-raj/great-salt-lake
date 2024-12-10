@@ -39,10 +39,18 @@ class ScrollSequence {
     }
 
     activateSequence(block) {
-        if (this.isActive) return;
+        console.log('Attempting to activate sequence:', {
+            isActive: this.isActive,
+            hasReachedEnd: this.hasReachedEnd
+        });
+        
+        // Don't activate if we've reached the end
+        if (this.isActive || this.hasReachedEnd) {
+            console.log('Activation prevented - sequence is active or has ended');
+            return;
+        }
         
         this.isActive = true;
-        this.hasReachedEnd = false;
         this.activeBlock = block;
         this.currentFrame = 1;
         
@@ -64,7 +72,15 @@ class ScrollSequence {
     }
 
     deactivateSequence() {
-        if (!this.isActive) return;
+        if (!this.isActive) {
+            console.log('Deactivate called but sequence not active');
+            return;
+        }
+        
+        console.log('Deactivating sequence:', {
+            wasActive: this.isActive,
+            currentFrame: this.currentFrame
+        });
         
         this.isActive = false;
         document.body.classList.remove('sequence-scrolling');
@@ -86,12 +102,16 @@ class ScrollSequence {
     }
 
     handleWheel(event) {
-        if (!this.isActive || this.hasReachedEnd) return;
+        if (!this.isActive || this.hasReachedEnd) {
+            console.log('Wheel event ignored:', { isActive: this.isActive, hasReachedEnd: this.hasReachedEnd });
+            return;
+        }
         
         const delta = Math.sign(event.deltaY);
         
         // Allow upward scrolling if we're at the first frame
         if (delta < 0 && this.currentFrame === 1) {
+            console.log('Deactivating sequence - scrolling up from first frame');
             this.deactivateSequence();
             return;
         }
@@ -106,9 +126,11 @@ class ScrollSequence {
         if (delta > 0) {
             // Scrolling down
             if (this.currentFrame < this.TOTAL_FRAMES) {
+                console.log('Next frame:', { current: this.currentFrame, total: this.TOTAL_FRAMES });
                 this.nextFrame();
             } else {
                 // When reaching last frame
+                console.log('Reached last frame - deactivating sequence');
                 this.hasReachedEnd = true;
                 this.deactivateSequence();
                 window.scrollTo({
@@ -117,7 +139,7 @@ class ScrollSequence {
                 });
             }
         } else if (delta < 0 && this.currentFrame > 1) {
-            // Scrolling up within sequence
+            console.log('Previous frame:', { current: this.currentFrame });
             this.previousFrame();
         }
     }
@@ -155,6 +177,11 @@ class ScrollSequence {
             this.sequenceBlocks.forEach(block => {
                 const rect = block.getBoundingClientRect();
                 if (rect.top <= 0) {
+                    console.log('Activating sequence from scroll:', {
+                        blockTop: rect.top,
+                        isActive: this.isActive,
+                        hasReachedEnd: this.hasReachedEnd
+                    });
                     this.activateSequence(block);
                 }
             });
