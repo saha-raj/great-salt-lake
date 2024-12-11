@@ -28,14 +28,19 @@
                 
                 <p>This article describes the process at a high level.</p>
                     
-                <p>The scrollable animation concept is inspired by The New York Times.</p>
+                <p>The scrollable animation concept is inspired by visualizations in the The New York Times.</p>
+            
             <div class="article-image">
                 <img src="assets/images/01.png" alt="Google Earth Timelapse Image">
                 <p class="caption">An individual image frame from Google Earth Timelapse</p>
             </div>
 
             <h2>Channel selection</h2>
-            <p>The original image has Red, Green and Blue Channels. We need to select the channel that has the highest contrast between the lake and the surrounding land. We do sort of manually given that we only have 3 channels to choose from and no near infrared. We find that the blue channel has the highest contrast between the lake and the surrounding land. We extract the blue channel from the original image and save the images.</p>
+            <p>The original image has Red, Green and Blue Channels. We need to select the channel that has the highest 
+                contrast between the lake and the surrounding land. We do this sort of manually given that we only have 3 
+                channels to choose from and no near infrared. We find that the blue channel has the highest contrast 
+                between the lake and the surrounding land. So we extract the blue channel from the original image and carry out 
+                the image analysis on this channel. At the end, we apply the boundaries back to the original images. </p>
             <div class="article-image">
                 <img src="assets/images/0203.jpg" alt="Cropped Blue Channel Image">
                 <p class="caption">Left: Extracted blue channel image, with a mask applied that corresponds to the lake's boundaries in 1984. 
@@ -43,15 +48,22 @@
             </div>
         
             <h2>Baseline year and lake boundaries</h2>
-            <p>1985 being the first year of our images, we select it as our baseline year. Then we apply thresholding to the blue channel to get the lake's boundaries. Again, this step is done manually. If we have access to more information such as a digital elevation models, we can use it to automatically determine the lake's boundaries.</p>
+            <p>1984 being the first year of our images, we select it as our baseline year. Then we apply thresholding 
+                to the blue channel to get the lake's boundaries. Again, this step is done manually. If we have access 
+                to more information such as a digital elevation models, we can use that to automatically determine the 
+                lake's boundaries.</p>
             
             <p>Once we have determined a suitable threshold, then we create a mask for the lake's boundaries in 1985. We then use this mask to extract the lake's boundaries from the original set of images.</p>
         
             <h2>Computing areas</h2>
-            <p>Applying the mask to the images now gives us the lake's boundaries for each year. Within the mask, we now find the lake boundaries for each image from each year. In practice it is actually easier to find the exposed land boundaries as they tend to be closed polygons. By subtracting the total area of the exposed land from the total area of the lake in 1985, we can get the area of the lake for each year.</p>
+            <p>Applying the mask to the images now gives us the lake's maximum extent for each year. Within the mask, 
+                we then find the lake boundaries in each year. In practice it may be easier to find the exposed land boundaries, 
+                depending on the contrast in the images. Subtracting the total area of the exposed land from the total area of the 
+                lake, we can get the area of the lake for each year.</p>
 
             <h2>Applying boundaries to images</h2>
-            <p>To show explicitly how the boundaries have changed over time, we apply the boundaries from our blue channel onto the original images.</p>
+            <p>To show explicitly how the boundaries have changed over time, we apply the boundaries from our blue 
+                channel onto the original images.</p>
             <div class="article-image">
                 <img src="assets/images/04.jpg" alt="Applying exposed land boundaries to the images">
                 <p class="caption">Exposed land polygons applied to the original image. Bright green polygons enclose exposed land.</p>

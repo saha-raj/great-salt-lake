@@ -6,16 +6,40 @@ class ScrollSequence {
         this.TOTAL_FRAMES = 38;
         this.lastWheelTime = Date.now();
         this.WHEEL_THROTTLE = 150;
-        this.hasReachedEnd = false;
+        this.touchStartY = 0;
+        this.touchThreshold = 5; // minimum pixels to trigger frame change
+
+        // Add touch event listeners
+        window.addEventListener('wheel', this.handleWheel.bind(this));
+        window.addEventListener('touchstart', this.handleTouchStart.bind(this));
+        window.addEventListener('touchmove', this.handleTouchMove.bind(this));
+        window.addEventListener('scroll', this.handleScroll.bind(this));
+    }
+
+    handleTouchStart(event) {
+        this.touchStartY = event.touches[0].clientY;
+    }
+
+    handleTouchMove(event) {
+        if (!this.isActive) return;
         
-        // Bind methods
-        this.handleScroll = this.handleScroll.bind(this);
-        this.handleWheel = this.handleWheel.bind(this);
+        event.preventDefault(); // Prevent default scroll
         
-        // Set up observers and listeners
-        this.setupIntersectionObserver();
-        window.addEventListener('scroll', this.handleScroll);
-        window.addEventListener('wheel', this.handleWheel, { passive: false });
+        const now = Date.now();
+        if (now - this.lastWheelTime < this.WHEEL_THROTTLE) return;
+        
+        const touchY = event.touches[0].clientY;
+        const deltaY = this.touchStartY - touchY;
+
+        if (Math.abs(deltaY) > this.touchThreshold) {
+            this.lastWheelTime = now;
+            if (deltaY > 0) {
+                this.nextFrame();
+            } else {
+                this.previousFrame();
+            }
+            this.touchStartY = touchY;
+        }
     }
 
     setupIntersectionObserver() {
