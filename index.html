@@ -14,17 +14,41 @@
 <body>
     <div class="content">
         <div class="text-block">
-            <h1>Section 1</h1>
-            <p>1 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <p>2 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <p>3 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-            <p>4 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>5 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <p>6 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <p>7 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-            <p>8 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>9 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <p>10 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <h1>Computing the area of Great Salt Lake over time</h1>
+            <div class="author">
+                <p>Author: Raj Saha, PhD</p>
+            </div>
+            
+            <p>In this project we use Google Earth Timelapse images between 1984 and 2022 to compute the area of Great Salt Lake over time. We primarily use python's OpenCV library to extract the lake's boundaries from the images and then compute the area of the lake. In this short article, we will discuss the process.</p>
+            <div class="article-image">
+                <img src="assets/images/01.png" alt="Google Earth Timelapse Image">
+                <p class="caption">An individual image frame from Google Earth Timelapse</p>
+            </div>
+
+            <h2>Channel Selection</h2>
+            <p>The original image has Red, Green and Blue Channels. We need to select the channel that has the highest contrast between the lake and the surrounding land. We do sort of manually given that we only have 3 channels to choose from and no near infrared. We find that the blue channel has the highest contrast between the lake and the surrounding land. We extract the blue channel from the original image and save the images.</p>
+            <div class="article-image">
+                <img src="assets/images/0203.jpg" alt="Cropped Blue Channel Image">
+                <p class="caption">Left: Extracted blue channel image, with a mask applied that corresponds to the lake's boundaries in 1984. Right: The same image with the mask applied. Right: The same image with thresholding applied to reveal exposed land.</p>
+            </div>
+        
+            <h2>Baseline Year and Lake Boundaries</h2>
+            <p>1985 being the first year of our images, we select it as our baseline year. Then we apply thresholding to the blue channel to get the lake's boundaries. Again, this step is done manually. If we have access to more information such as a digital elevation models, we can use it to automatically determine the lake's boundaries.</p>
+            
+            <p>Once we have determined a suitable threshold, then we create a mask for the lake's boundaries in 1985. We then use this mask to extract the lake's boundaries from the original set of images.</p>
+        
+            <h2>Computing the area</h2>
+            <p>Applying the mask to the images now gives us the lake's boundaries for each year. Within the mask, we now find the lake boundaries for each image from each year. In practice it is actually easier to find the exposed land boundaries as they tend to be closed polygons. By subtracting the total area of the exposed land from the total area of the lake in 1985, we can get the area of the lake for each year.</p>
+
+            <h2>Applying boundaries to the images</h2>
+            <p>To show explicitly how the boundaries have changed over time, we apply the boundaries from our blue channel onto the original images.</p>
+            <div class="article-image">
+                <img src="assets/images/04.jpg" alt="Applying exposed land boundaries to the images">
+                <p class="caption">Exposed land polygons applied to the original image.</p>
+            </div>
+
+            <p>And here is the final result.</p>
+
         </div>
 
         <div class="sequence-block">
@@ -35,49 +59,19 @@
         </div>
 
         <div class="text-block">
-            <h1>Section 2</h1>
-            <p>1 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <p>2 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <p>3 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-            <p>4 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>5 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <p>6 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <p>7 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-            <p>8 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>9 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <p>10 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <p>11 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-            <p>12 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>13 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <p>14 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <p>15 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-            <p>16 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>17 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <p>18 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <p>19 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-            <p>20 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>10 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <p>11 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-            <p>12 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>13 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <p>14 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <p>15 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-            <p>16 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>17 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <p>18 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <p>19 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-            <p>20 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>10 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <p>11 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-            <p>12 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>13 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <p>14 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <p>15 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-            <p>16 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>17 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <p>18 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <p>19 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-            <p>20 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+            <h2>Trend</h2>
+            <p>We can now plot the change in area of the lake over time.</p>
+            <div class="article-image">
+                <img src="assets/images/plot.png" alt="Change in area of Great Salt Lake over time">
+                <p class="caption">Caption 04</p>
+            </div>
+            
+            <p>Here is a <a href="https://www.nytimes.com/2022/06/07/climate/salt-lake-city-climate-disaster.html#:~:text=1.9k-,As%20the%20Great%20Salt%20Lake%20Dries%20Up%2C%20Utah%20Faces%20an,Great%20Salt%20Lake%20in%20Utah." target="_blank">great article</a> on how climate change has altered the Great Salt Lake.</p>
+            
+            <h2>Code Base</h2>
+            <p>You can find the code base for this project <a href="https://github.com/raj-saha/great-salt-lake" target="_blank">here</a>.</p>
+
 
         </div>
 
