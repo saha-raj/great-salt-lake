@@ -25,13 +25,12 @@ class ScrollSequence {
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                const block = entry.target;
-                const rect = block.getBoundingClientRect();
-                
-                // When block hits the top of viewport
-                if (entry.isIntersecting && rect.top <= 0) {
-                    this.activateSequence(block);
-                }
+                console.log('Intersection:', {
+                    isIntersecting: entry.isIntersecting,
+                    blockTop: entry.target.getBoundingClientRect().top,
+                    hasReachedEnd: this.hasReachedEnd,
+                    currentFrame: this.currentFrame
+                });
             });
         }, options);
 
@@ -96,6 +95,14 @@ class ScrollSequence {
     }
 
     handleWheel(event) {
+        console.log('Wheel event:', {
+            delta: Math.sign(event.deltaY),
+            isActive: this.isActive,
+            hasReachedEnd: this.hasReachedEnd,
+            currentFrame: this.currentFrame,
+            scrollY: window.scrollY
+        });
+        
         if (!this.isActive || this.hasReachedEnd) {
             console.log('Wheel event ignored:', { isActive: this.isActive, hasReachedEnd: this.hasReachedEnd });
             return;
@@ -170,15 +177,26 @@ class ScrollSequence {
         if (!this.isActive && !this.hasReachedEnd) {
             this.sequenceBlocks.forEach(block => {
                 const rect = block.getBoundingClientRect();
+                console.log('Scroll check:', {
+                    blockTop: rect.top,
+                    isActive: this.isActive,
+                    hasReachedEnd: this.hasReachedEnd,
+                    scrollY: window.scrollY,
+                    currentFrame: this.currentFrame
+                });
+                
                 if (rect.top <= 0) {
-                    console.log('Activating sequence from scroll:', {
-                        blockTop: rect.top,
-                        isActive: this.isActive,
-                        hasReachedEnd: this.hasReachedEnd
-                    });
                     this.activateSequence(block);
                 }
             });
+        } else if (this.hasReachedEnd) {
+            // Reset end state if we scroll back above the trigger point
+            const rect = this.sequenceBlocks[0].getBoundingClientRect();
+            if (rect.top > 0) {
+                this.hasReachedEnd = false;
+                this.currentFrame = 1;
+                this.updateFrame();
+            }
         }
     }
 }
