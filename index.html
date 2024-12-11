@@ -8,46 +8,56 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <title>Great Salt Lake</title>
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
     <div class="content">
         <div class="text-block">
-            <h1>Computing the area of Great Salt Lake over time</h1>
+            <h1>The Changing Great Salt Lake: A time-lapse demo</h1>
             <div class="author">
-                <p>Author: Raj Saha, PhD</p>
+                <p>By Raj Saha, PhD</p>
             </div>
             
-            <p>In this project we use Google Earth Timelapse images between 1984 and 2022 to compute the area of Great Salt Lake over time. We primarily use python's OpenCV library to extract the lake's boundaries from the images and then compute the area of the lake. In this short article, we will discuss the process.</p>
+            <p>In this project we use <a href="https://earthengine.google.com/timelapse/">Google Earth Timelapse</a> images of the Great Salt Lake between 1984 and 2022 to create a time-lapse visualization of the lake's changing boundaries and to
+                then compute the area of lake over time. 
+                We primarily use python's <a href="https://opencv.org/">OpenCV</a> library to extract the lake's boundaries from the images and then compute the area of the lake. </p>
+                
+                <p>This article describes the process at a high level.</p>
+                    
+                <p>The scrollable animation concept is inspired by The New York Times.</p>
             <div class="article-image">
                 <img src="assets/images/01.png" alt="Google Earth Timelapse Image">
                 <p class="caption">An individual image frame from Google Earth Timelapse</p>
             </div>
 
-            <h2>Channel Selection</h2>
+            <h2>Channel selection</h2>
             <p>The original image has Red, Green and Blue Channels. We need to select the channel that has the highest contrast between the lake and the surrounding land. We do sort of manually given that we only have 3 channels to choose from and no near infrared. We find that the blue channel has the highest contrast between the lake and the surrounding land. We extract the blue channel from the original image and save the images.</p>
             <div class="article-image">
                 <img src="assets/images/0203.jpg" alt="Cropped Blue Channel Image">
-                <p class="caption">Left: Extracted blue channel image, with a mask applied that corresponds to the lake's boundaries in 1984. Right: The same image with the mask applied. Right: The same image with thresholding applied to reveal exposed land.</p>
+                <p class="caption">Left: Extracted blue channel image, with a mask applied that corresponds to the lake's boundaries in 1984. 
+                    Right: The same image with thresholding applied to reveal exposed land (within the bright green polygons).</p>
             </div>
         
-            <h2>Baseline Year and Lake Boundaries</h2>
+            <h2>Baseline year and lake boundaries</h2>
             <p>1985 being the first year of our images, we select it as our baseline year. Then we apply thresholding to the blue channel to get the lake's boundaries. Again, this step is done manually. If we have access to more information such as a digital elevation models, we can use it to automatically determine the lake's boundaries.</p>
             
             <p>Once we have determined a suitable threshold, then we create a mask for the lake's boundaries in 1985. We then use this mask to extract the lake's boundaries from the original set of images.</p>
         
-            <h2>Computing the area</h2>
+            <h2>Computing areas</h2>
             <p>Applying the mask to the images now gives us the lake's boundaries for each year. Within the mask, we now find the lake boundaries for each image from each year. In practice it is actually easier to find the exposed land boundaries as they tend to be closed polygons. By subtracting the total area of the exposed land from the total area of the lake in 1985, we can get the area of the lake for each year.</p>
 
-            <h2>Applying boundaries to the images</h2>
+            <h2>Applying boundaries to images</h2>
             <p>To show explicitly how the boundaries have changed over time, we apply the boundaries from our blue channel onto the original images.</p>
             <div class="article-image">
                 <img src="assets/images/04.jpg" alt="Applying exposed land boundaries to the images">
-                <p class="caption">Exposed land polygons applied to the original image.</p>
+                <p class="caption">Exposed land polygons applied to the original image. Bright green polygons enclose exposed land.</p>
             </div>
 
-            <p>And here is the final result. (give it a second for the images to load ...)</p>
+            <p>And here is the final result ... <emph>(give it a second for the frames to load ...)</emph></p>
 
         </div>
 
@@ -64,13 +74,15 @@
             <p>We can now plot the change in area of the lake over time.</p>
             <div class="article-image">
                 <img src="assets/images/plot.png" alt="Change in area of Great Salt Lake over time">
-                <p class="caption">Change in area of Great Salt Lake since 1984</p>
+                <p class="caption">Change in area of Great Salt Lake since 1985</p>
             </div>
             
+            <p>The quasi-periodic fluctuations in the lake's are are due to variations in precipitation. </p>
+
             <p>Here is a <a href="https://www.nytimes.com/2022/06/07/climate/salt-lake-city-climate-disaster.html#:~:text=1.9k-,As%20the%20Great%20Salt%20Lake%20Dries%20Up%2C%20Utah%20Faces%20an,Great%20Salt%20Lake%20in%20Utah." target="_blank">great article</a> on how climate change has altered the Great Salt Lake.</p>
             
             <h2>Code Base</h2>
-            <p>You can find the code base for this project <a href="https://github.com/raj-saha/great-salt-lake" target="_blank">here</a>.</p>
+            <p>You can find the code base for this project <a href="https://github.com/saha-raj/great-salt-lake" target="_blank">here</a>.</p>
 
 
 

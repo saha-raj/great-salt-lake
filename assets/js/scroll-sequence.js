@@ -5,7 +5,7 @@ class ScrollSequence {
         this.isActive = false;
         this.TOTAL_FRAMES = 38;
         this.lastWheelTime = Date.now();
-        this.WHEEL_THROTTLE = 50;
+        this.WHEEL_THROTTLE = 150;
         this.hasReachedEnd = false;
         
         // Bind methods

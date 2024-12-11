@@ -5,31 +5,38 @@
 }
 
 body {
-    font-family: 'Noto Sans', -apple-system, system-ui, sans-serif;
+    /* font-family: 'Noto Sans', -apple-system, system-ui, sans-serif; */
+    font-family: "Noto Serif", serif;
+    /* font-family: 'PT Serif', Georgia, serif; */
     line-height: 1.5;
     overflow-x: hidden;
     min-height: 120vh;
 }
 
 h1 {
-    font-weight: 800;
-    font-family: 'Noto Sans', sans-serif;
-    font-size: 3rem;
+    
+    /* font-family: 'Noto Sans', sans-serif; */
+    /* font-family: 'PT Serif', Georgia, serif; */
+    font-family: "Noto Serif", serif;
+    font-weight: 400;
+    font-size: 2.5rem;
     margin-bottom: 1rem;
-    margin-top: 2rem;
+    margin-top: 3rem;
     line-height: 1.2;
 }
 
 h2 {
-    font-weight: 600;
-    font-family: 'Noto Sans', sans-serif;
-    margin-top: 1rem;
+    /* font-family: 'PT Serif', Georgia, serif; */
+    font-family: "Noto Serif", serif;
+    font-weight: 700;
+    margin-top: 2rem;
     margin-bottom: 1rem;
-    font-size: 1.8rem;
+    font-size: 1.3rem;
 }
 
 p {
-    font-family: 'Noto Sans', -apple-system, system-ui, sans-serif;
+    /* font-family: 'PT Serif', Georgia, serif; */
+    font-family: "Noto Serif", serif;
     font-weight: 400;
     font-size: 1.2rem;
     line-height: 1.6;
@@ -52,6 +59,8 @@ p {
     transform: translateX(-50%);
     margin: 2rem 0;
     z-index: 1;
+    transition: transform 0.6s ease-out, opacity 0.6s ease-out;  /* Added transition */
+
 }
 
 .sequence-container {
@@ -81,7 +90,7 @@ p {
     width: 0%;
     height: 4px;
     background: #000;
-    transition: width 0.1s ease;
+    transition: width 1s ease;
 }
 
 body.sequence-scrolling {
@@ -125,6 +134,7 @@ body.sequence-scrolling {
     font-style: italic;
 } */
 .article-image .caption {
+    font-family: 'Noto Sans', sans-serif;
     margin-top: 0;
     text-align: left;
     color: #666;
@@ -155,32 +165,36 @@ body.sequence-scrolling {
 }
 
 a {
-    color: #0066cc;
+    color: #2a9d8f;
     text-decoration: none;
     border-bottom: 1px solid transparent;
     transition: border-bottom-color 0.2s ease-in-out;
 }
 
 a:hover {
-    border-bottom-color: #0066cc;
+    border-bottom-color: #2a9d8f;
 }
 
 a:visited {
-    color: #551A8B;
+    color: #2a9d8f;
 }
 
 a:active {
-    color: #cc0000;
+    color: #2a9d8f;
 }
 
 .author {
     margin: 1rem 0 2rem 0;
-    color: #666;
-    font-style: italic;
+    color: #e0e2db;
+    font-family: 'Noto Sans', sans-serif;
+    font-style: normal;
+    font-weight: 800;
 }
 
 .author p {
     margin: 0;
+    font-family: 'Noto Sans', sans-serif;
+    color: #495057;
 }
 
 /* .footer {
@@ -210,6 +224,7 @@ a:active {
 
 .footer {
     min-height: 20vh;
+    font-family: 'Noto Sans', sans-serif;
     background-color: #f5f5f5;
     margin-top: 4rem;
     padding: 2rem 0;
@@ -220,14 +235,17 @@ a:active {
     margin: 0 auto;    /* Centers the container */
     padding: 0 1rem;   /* Same padding as main content */
     color: #cfdae1;  /* Base text color for footer */
+    font-family: 'Noto Sans', sans-serif;
 
 }
 
 .footer p {
     margin-bottom: 1rem;
     color: #cfdae1;
+    font-family: 'Noto Sans', sans-serif;
 }
 
 .footer a {
     color: #cfdae1;
+    font-family: 'Noto Sans', sans-serif;
 }
