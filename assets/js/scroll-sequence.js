@@ -9,11 +9,16 @@ class ScrollSequence {
         this.touchStartY = 0;
         this.touchThreshold = 5; // minimum pixels to trigger frame change
 
-        // Add touch event listeners
-        window.addEventListener('wheel', this.handleWheel.bind(this));
-        window.addEventListener('touchstart', this.handleTouchStart.bind(this));
-        window.addEventListener('touchmove', this.handleTouchMove.bind(this));
+        // Update all event listeners with passive: false
+        window.addEventListener('wheel', this.handleWheel.bind(this), { passive: false });
+        window.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: false });
+        window.addEventListener('touchmove', this.handleTouchMove.bind(this), { passive: false });
         window.addEventListener('scroll', this.handleScroll.bind(this));
+
+        // Optional: Add wheel event directly to sequence block for better control
+        this.sequenceBlocks.forEach(block => {
+            block.addEventListener('wheel', this.handleWheel.bind(this), { passive: false });
+        });
     }
 
     handleTouchStart(event) {
