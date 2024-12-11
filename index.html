@@ -25,11 +25,25 @@
             <p>In this project we use <a href="https://earthengine.google.com/timelapse/">Google Earth Timelapse</a> images of the Great Salt Lake between 1984 and 2022 to create a time-lapse visualization of the lake's changing boundaries and to
                 then compute the area of lake over time. 
                 We primarily use python's <a href="https://opencv.org/">OpenCV</a> library to extract the lake's boundaries from the images and then compute the area of the lake. </p>
-                
-                <p>This article describes the process at a high level.</p>
+            
                     
                 <p>The scrollable animation concept is inspired by visualizations in the The New York Times.</p>
-            
+
+                <p>Final results first ... <emph>(give it a second for the frames to load ...)</emph></p>
+
+        </div>
+
+            <div class="sequence-block">
+                <div class="sequence-container">
+                    <img src="assets/images/frames/001.jpg" alt="" class="current-frame">
+                </div>
+                <div class="sequence-progress"></div>
+            </div>
+    
+        <div class="text-block">
+            <h2>Process</h2>
+            <p>Let's examine the process involved in deducing the lake's boundaries from satellite imagery.</p>
+
             <div class="article-image">
                 <img src="assets/images/01.png" alt="Google Earth Timelapse Image">
                 <p class="caption">An individual image frame from Google Earth Timelapse</p>
@@ -62,25 +76,13 @@
                 lake, we can get the area of the lake for each year.</p>
 
             <h2>Applying boundaries to images</h2>
-            <p>To show explicitly how the boundaries have changed over time, we apply the boundaries from our blue 
-                channel onto the original images.</p>
+            <p>To show explicitly how the boundaries have changed over time, we apply the boundaries from our blue channel onto the original images.</p>
             <div class="article-image">
                 <img src="assets/images/04.jpg" alt="Applying exposed land boundaries to the images">
                 <p class="caption">Exposed land polygons applied to the original image. Bright green polygons enclose exposed land.</p>
             </div>
 
-            <p>And here is the final result ... <emph>(give it a second for the frames to load ...)</emph></p>
-
-        </div>
-
-        <div class="sequence-block">
-            <div class="sequence-container">
-                <img src="assets/images/frames/001.jpg" alt="" class="current-frame">
-            </div>
-            <div class="sequence-progress"></div>
-        </div>
-
-        <div class="text-block">
+        
 
             <h2>Trend</h2>
             <p>We can now plot the change in area of the lake over time.</p>
