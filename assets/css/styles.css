@@ -242,7 +242,7 @@ body.sequence-scrolling {
 .article-image.chart-container .caption {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-}
+} 
 
 /* For larger screens */
 @media (min-width: 1200px) {
